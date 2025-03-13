@@ -1,0 +1,35 @@
+name: Test Xeger
+on:
+  workflow_run:
+    workflows: ["Lint Xeger"]
+    types: 
+      - completed
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        name: Run Tests
+
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                persist-credentials: false
+
+            - name: Set up Python 3.13
+              uses: actions/setup-python@v5
+              with:
+                python-version: 3.13
+
+            - name: Install pipenv
+              run: >-
+                python3 -m
+                pip install
+                pipenv
+                --user
+
+            - name: Install dependencies
+              run: pipenv install --dev
+
+            - name: Run tests
+              run: pipenv run pytest
