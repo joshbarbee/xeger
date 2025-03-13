@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="xeger",
+    name="xeger-lark",
     version="0.1.0",
     description="A library for generating matching strings from a valid PCRE regex",
     author="Josh Barbee",
