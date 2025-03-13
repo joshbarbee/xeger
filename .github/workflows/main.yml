@@ -1,4 +1,4 @@
-name: Xeger Main Branch
+name: Xeger Merge Check
 
 on:
   push:
@@ -101,28 +101,7 @@ jobs:
                 path: dist/
             - name: Publish packge to PyPi
               uses: pypa/gh-action-pypi-publish@release/v1
-
-    publish-to-testpypi:
-        name: Publish to TestPyPi
-        needs: build
-        runs-on: ubuntu-latest
-
-        environment:
-            name: testpypi
-            url: https://test.pypi.org/p/xeger/
-        permissions:
-            id-token: write 
-        steps:
-            - name: Download dist
-              uses: actions/download-artifact@v4
-              with:
-                name: python-package-distributions
-                path: dist/
-            - name: Publish dist to TestPyPI
-              uses: pypa/gh-action-pypi-publish@release/v1
-              with:
-                repository-url: https://test.pypi.org/legacy/
-
+              
     github-release:
         name: Sign and create GitHub Release
         needs: publish-to-pypi

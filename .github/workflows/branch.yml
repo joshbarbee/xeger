@@ -1,4 +1,4 @@
-name: Test Xeger
+name: Xeger PR Check
 on:
   push:
     branches-ignore:
