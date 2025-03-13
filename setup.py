@@ -1,8 +1,14 @@
 from setuptools import setup, find_packages
+import os, codecs
+
+def read(*parts):
+    return codecs.open(os.path.join(os.path.abspath(os.path.dirname(__file__)), *parts), 'r').read()
+
+long_description = read('README.md')
 
 setup(
     name="xeger-lark",
-    version="0.1.1",
+    version="0.1.2",
     description="A library for generating matching strings from a valid PCRE regex",
     author="Josh Barbee",
     author_email="joshbarbee1@gmail.com",
@@ -16,5 +22,4 @@ setup(
     ],
     python_requires=">=3.6",
     package_data={"xeger": ["xeger/grammar.lark"]},
-    include_package_data=True,
 )
