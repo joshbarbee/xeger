@@ -6,7 +6,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="xeger-lark",
-    version="0.1.0",
+    version="0.1.1",
     description="A library for generating matching strings from a valid PCRE regex",
     author="Josh Barbee",
     author_email="joshbarbee1@gmail.com",
