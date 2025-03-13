@@ -2,7 +2,7 @@ name: Publish Xeger to PyPi
 
 on:
   workflow_run:
-    workflows: ["Test Xeger"]
+    workflows: [Test Xeger]
     branches: [main]
     types: 
         - completed

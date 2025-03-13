@@ -1,7 +1,7 @@
 name: Test Xeger
 on:
   workflow_run:
-    workflows: ["Lint Xeger"]
+    workflows: [Lint Xeger]
     types: 
       - completed
 
