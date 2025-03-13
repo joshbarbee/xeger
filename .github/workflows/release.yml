@@ -1,9 +1,7 @@
 name: Xeger Merge Check
 
 on:
-  push:
-    branches:
-      - main
+  push
 
 jobs:
     build:
