@@ -52,7 +52,7 @@ jobs:
               run: pipenv run pytest
     build:
         runs-on: ubuntu-latest
-        name: Build Distribution and Publish to PyPi
+        name: Build Distribution and Store Artifacts
         needs: test
 
         steps:
@@ -101,7 +101,7 @@ jobs:
                 path: dist/
             - name: Publish packge to PyPi
               uses: pypa/gh-action-pypi-publish@release/v1
-              
+
     github-release:
         name: Sign and create GitHub Release
         needs: publish-to-pypi
