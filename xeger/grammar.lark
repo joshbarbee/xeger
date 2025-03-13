@@ -1,0 +1,94 @@
+regex: START_OF_STRING_ANCHOR? expression
+
+expression: sub_expression ("|" expression)?
+
+sub_expression: (match | group | anchor)+
+
+group: "(" expression ")" quantifier?
+
+match: match_item quantifier?
+
+match_item: match_any_character 
+    | match_character_class
+    | character
+
+match_any_character: "."
+
+match_character_class: character_class
+    | character_group
+    
+character_group: "[" NEGATIVE_MODIFIER? character_group_items "]"
+
+character_group_items: (character_class | character_range)+
+
+character_class: character_class_any_word
+    | character_class_any_word_inverted
+    | character_class_any_decimal_digit
+    | character_class_any_decimal_digit_inverted
+    | character_class_any_whitespace
+    | character_class_any_whitespace_inverted
+    | character_class_letters_and_digits
+    | character_class_letters
+    | character_class_ascii
+    | character_class_blank
+    | character_class_control
+    | character_class_graph
+    | character_class_lower
+    | character_class_print
+    | character_class_punct
+    | character_class_upper
+    | character_class_hexdigit
+
+character_class_any_word: "\\w" | "[[:word:]]"
+character_class_any_word_inverted: "\\W"
+character_class_any_decimal_digit: "\\d" | "[[:digit:]]"
+character_class_any_decimal_digit_inverted: "\\D"
+character_class_any_whitespace: "\\s" | "[[:space:]]"
+character_class_any_whitespace_inverted: "\\S"
+character_class_letters_and_digits: "[[:alnum:]]"
+character_class_letters: "[[:alpha:]]"
+character_class_ascii: "[[:ascii:]]"
+character_class_blank: "[[:blank:]]"
+character_class_control: "[[:cntrl:]]"
+character_class_graph: "[[:graph:]]"
+character_class_lower: "[[:lower:]]"
+character_class_print: "[[:print:]]"
+character_class_punct: "[[:punct:]]"
+character_class_upper: "[[:upper:]]"
+character_class_hexdigit: "[[:xdigit:]]"
+
+character_class_from_unicode_category: "\p{" unicode_category_name "}"
+unicode_category_name: LETTERS
+
+character_range.1: character ("-" character)?
+
+quantifier: quantifier_type LAZY_MODIFIER?
+
+quantifier_type: nonrange_quantifier
+    | range_quantifier
+
+nonrange_quantifier: ZERO_OR_MORE_QUANTIFIER
+    | ZERO_OR_ONE_QUANTIFIER
+    | ONE_OR_MORE_QUANTIFIER
+
+NEGATIVE_MODIFIER: "^"
+LAZY_MODIFIER: "?"
+
+ZERO_OR_MORE_QUANTIFIER: "*"
+ZERO_OR_ONE_QUANTIFIER: "?"
+ONE_OR_MORE_QUANTIFIER: "+"
+
+range_quantifier: "{" range_quantifier_lower_bound ("," range_quantifier_upper_bound?)? "}"
+
+range_quantifier_lower_bound: INTEGER
+range_quantifier_upper_bound: INTEGER
+
+START_OF_STRING_ANCHOR: "^"
+
+anchor: END_OF_STRING_ANCHOR
+
+END_OF_STRING_ANCHOR: "$"
+
+INTEGER: /[0-9]+/
+character: /[\u0000-\uFFFF]/
+LETTERS: /[a-zA-Z]+/
